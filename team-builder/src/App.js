@@ -1,23 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react'
+import Form from './components/Form'
+
+const teamList = [
+  { name: 'Allie', email: 'ab@gmail.com', role: 'student' },
+  { name: 'Ashley', email: 'al@gmail.com', role: 'student' },
+  { name: 'Emma', email: 'esl@gmail.com', role: 'student' },
+  { name: 'Brianne', email: 'bt@gmail.com', role: 'student' }
+]
+const initialFormValues = {
+  name: '',
+  email: '',
+  role: '',
+}
 
 function App() {
+  const [members, setMembers] = useState(teamList)
+  const [formValues, setFormValues] = useState(initialFormValues)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <Form 
+        values={members}
+        update={updateForm}
+        submit={submitForm}  
+      />
+      <h1>Team Members</h1>
+      {
+        members.map((member, idx) => {
+          return <div key={idx}> 
+          <p>{member.name} is a {member.role}</p>
+          <p>{member.email}</p>
+          </div>
+          
+
+
+
+        })
+      }
+
     </div>
   );
 }
